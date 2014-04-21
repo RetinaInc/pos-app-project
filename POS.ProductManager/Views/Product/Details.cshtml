@@ -1,0 +1,34 @@
+﻿@model POS.ProductManager.Models.Domain.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+<div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Product Details</div>
+        <div class="panel-body">
+            <h2>@Html.DisplayFor(model => model.Name)</h2>
+        </div>
+
+        <!-- List group -->
+        <ul class="list-group">
+            <li class="list-group-item">
+                @Html.DisplayNameFor(model => model.ProductStoreId) : @Html.DisplayFor(model => model.ProductStoreId)
+            </li>
+            <li class="list-group-item">
+                @Html.DisplayNameFor(model => model.Category.CategoryStoreId) : @Html.DisplayFor(model => model.Category.CategoryStoreId)
+            </li>
+            <li class="list-group-item">
+                @Html.DisplayNameFor(model => model.Created) : @Html.DisplayFor(model => model.Created)
+            </li>
+        </ul>
+    </div>
+
+    <div class="pull-right">
+        <a href="@Url.Action("Index")">
+            <input type="button" class="btn btn-default" value="Back" />
+        </a>
+    </div>
+    <br /><br />
+</div>

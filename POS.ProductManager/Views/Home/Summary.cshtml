@@ -1,0 +1,29 @@
+﻿@model IEnumerable<POS.ProductManager.ViewModels.CategorySummary>
+@{
+    ViewBag.Title = "Products Summary";
+}
+<br/>
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @ViewBag.Title
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                @foreach (var item in Model)
+                {
+                    <li class="list-group-item">
+                        <span class="badge pull-right">@item.Quantity</span>
+                        @item.CategoryName
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="pull-right">
+        <a href="@Url.Action("Index")">
+            <input type="button" class="btn btn-default" value="Back" />
+        </a>
+    </div>
+    <br /><br />
+</div>

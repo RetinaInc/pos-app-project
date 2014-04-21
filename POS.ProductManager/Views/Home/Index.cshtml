@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Welcome";
+}
+
+<div class="jumbotron">
+    <h1>POS Application</h1>
+    <p class="lead">
+        POS Product Management software to manage your products the right way.
+    </p>
+    <p><a class="btn btn-success" href="@Url.Action("Summary")">See Now &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Product Categories</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem urna, malesuada ut fringilla in, dignissim quis quam. Curabitur venenatis. 
+        </p>
+        <p><a class="btn btn-primary" href="@Url.Action("Index","Category")">Categories &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Products</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel turpis sodales, vestibulum quam ut, ultrices dui. Nullam a sodales.
+        </p>
+        <p><a class="btn btn-primary" href="@Url.Action("Index","Product")">Products &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Summarries</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ipsum lectus, aliquam eu porttitor sit amet, pellentesque id augue. Sed. 
+        </p>
+        <p><a class="btn btn-primary" href="@Url.Action("Summary")">Summary &raquo;</a></p>
+    </div>
+</div>

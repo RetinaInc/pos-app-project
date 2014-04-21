@@ -1,0 +1,43 @@
+﻿@model POS.ProductManager.Models.Domain.Category
+
+@{
+    ViewBag.Title = "Details";
+
+}
+<div>
+    <h2>Details</h2>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Product</div>
+        <div class="panel-body">
+            <h2>@Html.DisplayFor(model => model.Name)</h2>
+        </div>
+
+        <!-- List group -->
+        <ul class="list-group">
+            <li class="list-group-item">
+                @Html.DisplayNameFor(model => model.CategoryStoreId) : @Html.DisplayFor(model => model.CategoryStoreId)
+            </li>
+            <li class="list-group-item">
+                @Html.DisplayNameFor(model => model.Created) : @Html.DisplayFor(model => model.Created)
+            </li>
+            <li class="list-group-item">
+                <strong>Products:</strong>
+                <ul class="list-inline">
+                    @foreach (var product in Model.Products.GroupBy(p => p.Name))
+                    {
+                        int num = Model.Products.Where(p => p.Name == product.Key).Count();
+                        <li>@product.Key (@num)</li>
+                    }
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="pull-right">
+        <a href="@Url.Action("Index")">
+            <input type="button" class="btn btn-default" value="Back" />
+        </a>
+    </div>
+    <br /><br />
+</div>

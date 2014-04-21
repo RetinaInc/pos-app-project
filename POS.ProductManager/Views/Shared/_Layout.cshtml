@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - POS Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script>
+        @*var controllerName = '@ViewContext.RouteData.Values["Controller"].ToString()';
+        $("tabs").removeClass("active");
+        if (controllerName == "Category") {
+            $("#categoryTab").addClass("active");
+        } else if (controllerName == "Product") {
+            $("#productTab").addClass("active");
+        }*@
+
+        function setActive(item1, item2) {
+            $("#" + item2).removeClass("active");
+            $("#" + item1).removeClass("active");
+            $("#" + item1).addClass("active");
+        }
+    </script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("POS Application", "Index", "Home", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Summary", "Summary", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            if (ViewBag.Title != "Welcome")
+            {
+                var controllerName = ViewContext.RouteData.Values["Controller"].ToString();
+                <br />
+                <ul class="nav nav-tabs">
+                    @if (controllerName == "Category")
+                    {
+                        <li class="active"><a href="@Url.Action("Index","Category")">Category Panel</a></li>
+                        <li><a href="@Url.Action("Index","Product")">Product Panel</a></li>
+                    }
+                    else if (controllerName == "Product")
+                    {
+                        <li><a href="@Url.Action("Index", "Category")">Category Panel</a></li>
+                        <li class="active"><a href="@Url.Action("Index", "Product")">Product Panel</a></li>
+                    }
+                    else if (ViewBag.Title == "Products Summary")
+                    {
+                        <li><a href="@Url.Action("Index", "Category")">Category Panel</a></li>
+                        <li><a href="@Url.Action("Index", "Product")">Product Panel</a></li>
+                    }
+                </ul>
+                <br />
+            }
+        }
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - POS Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<POS.ProductManager.Models.Domain.Category>
+
+@{
+    ViewBag.Title = "Categories";
+    
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryStoreId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchasePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SellingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            <a href="@Url.Action("Create")">
+                <i class="glyphicon glyphicon-plus"></i>
+                Add Category
+            </a>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryStoreId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchasePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SellingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created)
+        </td>
+        <td>
+            @*<a href="@Url.Action("Edit", new {id = item.CategoryId})">
+                <i class="glyphicon glyphicon-edit"></i>
+                Edit
+            </a>
+            &nbsp;*@
+            <a href="@Url.Action("Details", new { id = item.CategoryId })">
+                <i class="glyphicon glyphicon-wrench"></i>
+                Details
+            </a>
+            &nbsp;
+            <a href="@Url.Action("Delete", new { id = item.CategoryId })">
+                <i class="glyphicon glyphicon-minus"></i>
+                Delete
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
