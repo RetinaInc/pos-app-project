@@ -11,8 +11,11 @@ namespace POS.ProductManager.ViewModels
 {
     public sealed class ProductViewModel
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public int CategoryId { get; set; }
+        [Required]
         public int Quantity { get; set; }
     }
 }

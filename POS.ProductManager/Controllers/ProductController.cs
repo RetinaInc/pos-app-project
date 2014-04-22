@@ -48,7 +48,8 @@ namespace POS.ProductManager.Controllers
                     products = products.OrderBy(s => s.Name);
                     break;
             }
-
+            int numProducts = products.Count();
+            ViewBag.NumResults = numProducts;
             return View(products);
         }
 
