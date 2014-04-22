@@ -26,8 +26,8 @@
         </th>
         <th>
             <a href="@Url.Action("Create")">
-                <i class="glyphicon glyphicon-plus"></i>
-                Add Category
+                <i class="glyphicon glyphicon-plus-sign"
+                   data-toggle="tooltip" data-placement="bottom" title="Add Category"></i>
             </a>
         </th>
     </tr>
@@ -50,19 +50,20 @@
             @Html.DisplayFor(modelItem => item.Created)
         </td>
         <td>
-            @*<a href="@Url.Action("Edit", new {id = item.CategoryId})">
-                <i class="glyphicon glyphicon-edit"></i>
-                Edit
+            @*<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>*@
+            <a href="@Url.Action("Edit", new {id = item.CategoryId})">
+                <i class="glyphicon glyphicon-edit"
+                   data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
             </a>
-            &nbsp;*@
+            &nbsp;
             <a href="@Url.Action("Details", new { id = item.CategoryId })">
-                <i class="glyphicon glyphicon-wrench"></i>
-                Details
+                <i class="glyphicon glyphicon-cog"
+                    data-toggle="tooltip" data-placement="bottom" title="Details"></i>
             </a>
             &nbsp;
             <a href="@Url.Action("Delete", new { id = item.CategoryId })">
-                <i class="glyphicon glyphicon-minus"></i>
-                Delete
+                <i class="glyphicon glyphicon-remove-circle"
+                   data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
             </a>
         </td>
     </tr>

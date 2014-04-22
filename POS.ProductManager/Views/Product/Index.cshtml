@@ -1,16 +1,32 @@
-﻿@model IEnumerable<POS.ProductManager.Models.Domain.Product>
+﻿@using System.Data.SqlClient
+@model IEnumerable<POS.ProductManager.Models.Domain.Product>
 
 @{
     ViewBag.Title = "Products";
-    
+
 }
 
 <h2>@ViewBag.Title</h2>
-
+<div class="well well-sm">
+    @using (Html.BeginForm("Index", "Product", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        <fieldset>
+            @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder="Search" })
+            @*<input type="search" id="SearchString" name="SearchString" class="form-control" />*@
+            <input type="submit" value="Search" class="btn btn-info" />
+            <a href="@Url.Action("Index")">
+                <input type="button" value="Reset" class="btn btn-default"/>
+            </a>
+            @*@Html.ActionLink("Reset", "Index", null, new { @class = "btn btn-default" })*@
+        </fieldset>
+    }
+</div>
 <table class="table table-responsive table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            <a href="@Url.Action("Index", new{sortOrder = ViewBag.NameSortParam})">
+                @Html.DisplayNameFor(model => model.Name)
+            </a>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProductStoreId)
@@ -19,12 +35,14 @@
             @Html.DisplayNameFor(model => model.Category.CategoryStoreId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Created)
+            <a href="@Url.Action("Index", new { sortOrder = ViewBag.DateSortParm })">
+                @Html.DisplayNameFor(model => model.Created)
+            </a>
         </th>
         <th>
             <a href="@Url.Action("Create")">
-                <i class="glyphicon glyphicon-plus"></i>
-                Add Product
+                <i class="glyphicon glyphicon-plus-sign"
+                   data-toggle="tooltip" data-placement="bottom" title="Add Product"></i>
             </a>
         </th>
     </tr>
@@ -33,7 +51,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Name) - @Html.DisplayFor(modelItem => item.Category.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductStoreId)
@@ -46,18 +64,18 @@
             </td>
             <td>
                 @*<a href="@Url.Action("Edit", new {id = item.ProductId})">
-                    <i class="glyphicon glyphicon-edit"></i>
-                    Edit
-                </a>
-                &nbsp;*@
+                        <i class="glyphicon glyphicon-edit"></i>
+                        Edit
+                    </a>
+                    &nbsp;*@
                 <a href="@Url.Action("Details", new {id = item.ProductId})">
-                    <i class="glyphicon glyphicon-wrench"></i>
-                    Details
+                    <i class="glyphicon glyphicon-cog"
+                       data-toggle="tooltip" data-placement="bottom" title="Details"></i>
                 </a>
                 &nbsp;
                 <a href="@Url.Action("Delete", new {id = item.ProductId})">
-                    <i class="glyphicon glyphicon-minus"></i>
-                    Delete
+                    <i class="glyphicon glyphicon-remove-circle"
+                       data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
                 </a>
             </td>
         </tr>

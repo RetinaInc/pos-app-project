@@ -27,10 +27,17 @@
             <li class="list-group-item">
                 <strong>Products:</strong>
                 <ul class="list-inline">
-                    @foreach (var product in Model.Products.GroupBy(p => p.Name))
+                    @if (Model.Products.Count > 0)
                     {
-                        int num = Model.Products.Where(p => p.Name == product.Key).Count();
-                        <li>@product.Key (@num)</li>
+                        foreach (var product in Model.Products.GroupBy(p => p.Name))
+                        {
+                            int num = Model.Products.Where(p => p.Name == product.Key).Count();
+                            <li>@product.Key (@num)</li>
+                        }
+                    }
+                    else
+                    {
+                        <li>None</li>
                     }
 
                 </ul>

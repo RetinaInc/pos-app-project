@@ -20,9 +20,35 @@ namespace POS.ProductManager.Controllers
 
         // GET: /Product/
 
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string searchString)
         {
-            var products = db.Products.OrderByDescending(p => p.Created).ToList();
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            IQueryable<Product> products = db.Products;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())
+                                       || s.Category.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "Date":
+                    products = products.OrderBy(s => s.Created);
+                    break;
+                case "date_desc":
+                    products = products.OrderByDescending(s => s.Created);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.Name);
+                    break;
+            }
+
             return View(products);
         }
 
@@ -56,7 +82,7 @@ namespace POS.ProductManager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "ProductId,ProductStoreId,Name,Created,CategoryId")]
-        public ActionResult Create(CreateProduct product)
+        public ActionResult Create(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {

@@ -31,21 +31,26 @@ namespace POS.ProductManager.DataServices
             return namePart;
         }
 
-        public List<CategorySummary> GetSummary()
+        public List<CategoryViewModel> GetSummary()
         {
             var db = new ProductContext();
             var categories = db.Categories;
-
+            if (categories == null) return null;
             // linq expressin to get list of summaries
             var summaries = (from category in categories
                              let quantity = db.Products.Count(p => p.CategoryId == category.CategoryId)
-                             select new CategorySummary { CategoryName = category.Name, Quantity = quantity }
+                             select new CategoryViewModel
+                             {
+                                 Name = category.Name,
+                                 Products = category.Products.ToList(),
+                                 Quantity = quantity
+                             }
                             ).ToList();
 
             return summaries;
         }
 
-        internal static void CreateProduct(CreateProduct productInfo)
+        internal static void CreateProduct(ProductViewModel productInfo)
         {
             var db = new ProductContext();
             string catStoreId = db.Categories.Find(productInfo.CategoryId).CategoryStoreId;

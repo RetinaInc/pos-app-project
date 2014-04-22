@@ -1,16 +1,16 @@
-﻿@model POS.ProductManager.ViewModels.CreateProduct
+﻿@model POS.ProductManager.ViewModels.ProductViewModel
 @{
     ViewBag.Title = "Create";
-    
+
 }
 
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
@@ -27,14 +27,14 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="CategoryId">Category</label>
             <div class="col-md-10">
-                @Html.DropDownListFor(m=>m.CategoryId,
+                @Html.DropDownListFor(m => m.CategoryId,
                     new SelectList(ViewBag.CategoryList, "CategoryId", "Name"),
-                    "Select Category", new { @class = "form-control"})
-                
+                    "Select Category", new { @class = "form-control" })
+
                 @Html.ValidationMessageFor(model => model.CategoryId)
             </div>
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Quantity, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -46,14 +46,13 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-success" />
+                <a href="@Url.Action("Index")">
+                    <input type="button" class="btn btn-default" value="Cancel" />
+                </a>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

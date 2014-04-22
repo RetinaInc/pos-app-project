@@ -9,9 +9,10 @@ using POS.ProductManager.Models.Domain;
 
 namespace POS.ProductManager.ViewModels
 {
-    public sealed class CreateProduct : Product
+    public sealed class ProductViewModel
     {
-        [DefaultValue(1)]
+        public string Name { get; set; }
+        public int CategoryId { get; set; }
         public int Quantity { get; set; }
     }
 }

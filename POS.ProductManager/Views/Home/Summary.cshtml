@@ -1,29 +1,58 @@
-﻿@model IEnumerable<POS.ProductManager.ViewModels.CategorySummary>
+﻿@model IEnumerable<POS.ProductManager.ViewModels.CategoryViewModel>
 @{
     ViewBag.Title = "Products Summary";
 }
-<br/>
+<br />
 <div>
     <div class="panel panel-default">
         <div class="panel-heading">
             @ViewBag.Title
         </div>
         <div class="panel-body">
-            <ul class="list-group">
+            <div class="panel-group" id="accordion">
                 @foreach (var item in Model)
                 {
-                    <li class="list-group-item">
-                        <span class="badge pull-right">@item.Quantity</span>
-                        @item.CategoryName
-                    </li>
+                    //var itemName = item.Name;
+                    var panelId = item.Name.Replace("\u0020", string.Empty);
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#@panelId">
+                                    <span class="badge pull-right">@item.Quantity</span>
+                                    @item.Name
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="@panelId" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <strong>Products:</strong>
+                                <ul class="list-inline">
+                                    @if (item.Products.Count > 0)
+                                    {
+                                        foreach (var product in item.Products.GroupBy(p => p.Name))
+                                        {
+                                            int num = item.Products.Count(p => p.Name == product.Key);
+                                            <li>@product.Key &nbsp;<span class="badge pull-right">@num</span></li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li>None</li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 }
-            </ul>
+            </div>
+            <br />
+            <div class="pull-right">
+                <a href="@Url.Action("Index")">
+                    <input type="button" class="btn btn-default" value="Back" />
+                </a>
+            </div>
+            <br /><br />
         </div>
     </div>
-    <div class="pull-right">
-        <a href="@Url.Action("Index")">
-            <input type="button" class="btn btn-default" value="Back" />
-        </a>
-    </div>
-    <br /><br />
 </div>
